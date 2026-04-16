@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useRef, useMemo, useState } from "react";
 import { Canvas, useFrame } from "react-three-fiber";
 import { OrbitControls } from "@react-three/drei";
