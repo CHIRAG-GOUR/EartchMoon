@@ -1,6 +1,6 @@
-import React, { useRef, useMemo, useState, useEffect } from "react";
+import React, { useRef, useMemo, useState } from "react";
 import { Canvas, useFrame } from "react-three-fiber";
-import { Text, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Slider, Typography } from "@mui/material";
 
@@ -30,48 +30,7 @@ export const Earth3JS = () => {
    */
   const [simulationSpeed, setSimulationSpeed] = useState(1);
 
-  /**
-   * Function to toggle the graphics settings of various elements from highest
-   * to lowest. It affects tri counts and texture sizes. The tri count of the
-   * Earth sphere does not lower since it would clip through the clouds sphere.
-   */
-  const toggleGraphics = () => {
-    if (earthTextureToUse === TwoKEarth) {
-      setEarthTextureToUse(FourKEarth);
-    } else {
-      setEarthTextureToUse(TwoKEarth);
-    }
 
-    if (cloudsTextureToUse === clouds3k) {
-      setCloudsTextureToUse(clouds1080p);
-    } else {
-      setCloudsTextureToUse(clouds3k);
-    }
-
-    if (earthTextureToUse === moon360p) {
-      setMoonTextureToUse(moon720p);
-    } else {
-      setMoonTextureToUse(moon360p);
-    }
-
-    if (earthTrisAmount === 128) {
-      setEarthTrisAmount(32);
-    } else {
-      setEarthTrisAmount(128);
-    }
-
-    if (moonTrisAmount === 32) {
-      setMoonTrisAmount(16);
-    } else {
-      setMoonTrisAmount(32);
-    }
-
-    if (settingsAreLow) {
-      setSettingsAreLow(false);
-    } else {
-      setSettingsAreLow(true);
-    }
-  };
 
   const Earth = (props) => {
     const mesh = useRef();
@@ -176,43 +135,7 @@ export const Earth3JS = () => {
     );
   };
 
-  const SettingsButton = (props) => {
-    /**
-     * This tracks wether mouse cursor is on the button so that the cursor can
-     * change to a pointer.
-     */
-    const [hovered, setHovered] = useState(false);
 
-    useEffect(() => {
-      document.body.style.cursor = hovered ? "pointer" : "auto";
-    }, [hovered]);
-    const mesh = useRef();
-
-    useFrame(() => {
-      if (settingsAreLow) {
-        mesh.current.rotation.x =
-          simulationSpeed * (Math.sin(Date.now() * 0.001) * Math.PI * 0.01);
-        mesh.current.rotation.y =
-          simulationSpeed * (Math.sin(Date.now() * 0.001) * Math.PI * 0.004);
-        mesh.current.rotation.z =
-          simulationSpeed * (Math.sin(Date.now() * 0.001) * Math.PI * 0.015);
-      }
-    });
-
-    return (
-      <mesh
-        {...props}
-        ref={mesh}
-        scale={[0.15, 0.15, 0.15]}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-      >
-        <Text depthTest={true} fillOpacity={0.85}>
-          Toggle {settingsAreLow ? "Low" : "High"} Settings
-        </Text>
-      </mesh>
-    );
-  };
 
   return (
     <>
@@ -240,10 +163,7 @@ export const Earth3JS = () => {
             <Earth position={[0, -0.1, 0]} />
             <Clouds position={[0, -0.1, 0]} />
             <Moon position={[3, 0, 2]} />
-            {/* <SettingsButton
-              position={[-1.55, 2.5, 0]}
-              onClick={toggleGraphics}
-            /> */}
+
             {settingsAreLow && (
               <>
                 <ambientLight intensity={0.1} color="#ffffff" />
