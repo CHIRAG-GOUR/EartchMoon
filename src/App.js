@@ -3,7 +3,7 @@ import React, { useRef, useMemo, useState } from "react";
 import { Canvas, useFrame } from "react-three-fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { Slider, Typography } from "@mui/material";
+
 
 import clouds3k from "./images/3k_earth_clouds.webp";
 import clouds1080p from "./images/1080p_earth_clouds.webp";
@@ -187,63 +187,7 @@ export const Earth3JS = () => {
             )}
             <OrbitControls />
           </Canvas>
-          <div
-            style={{
-              position: "absolute",
-              right: 20,
-              top: 25,
-              // backgroundColor: "#ccc",
-              opacity: 0.85,
-              paddingLeft: 2,
-              paddingRight: 2,
-              width: 100,
-            }}
-          >
-            <Slider
-              size="small"
-              defaultValue={simulationSpeed}
-              onChange={(_, newValue) => setSimulationSpeed(newValue)}
-              onChangeCommitted={(_, newValue) => setSimulationSpeed(newValue)}
-              valueLabelDisplay="auto"
-              step={0.25}
-              marks
-              min={0}
-              max={2.5}
-            />
-            <Typography color="primary" style={{ fontSize: 12 }}>
-              Simulation Speed
-            </Typography>
-          </div>
 
-          <div
-            style={{
-              position: "absolute",
-              right: 0,
-              bottom: 0,
-              backgroundColor: "#ccc",
-              opacity: 0.5,
-              paddingLeft: 2,
-              paddingRight: 2,
-            }}
-          >
-            <Typography style={{ fontSize: 12 }}>
-              <a
-                href="https://www.solarsystemscope.com/textures/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Earth, Clouds, and Moon Texture Source
-              </a>
-              &emsp;|&emsp;
-              <a
-                href="https://photojournal.jpl.nasa.gov/catalog/PIA12348"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Background Texture Source
-              </a>
-            </Typography>
-          </div>
         {/* </ThemeProvider> */}
       </main>
     </>
